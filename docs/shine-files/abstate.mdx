@@ -1,0 +1,66 @@
+---
+sidebar_position: 1
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Abstate.shn
+
+:::caution
+While this file can be extended, any newly added Abstate will **NOT** work!
+You will need a Hook to add the functionality of adding new Abstates here.
+
+_The reason behind this is the hardcoded AbStataIndex Limit in the Zone service_
+:::
+
+<Tabs>
+<TabItem value="dispel" label="Dispel Attribute" default>
+
+| Identifier | Meaning | Technical Name |
+|:----------:|:-------:|:---------------|
+|     0      |  None   | DA_NONE        |
+|     1      |  Buff   | DA_GOOD        |
+|     2      | Debuff  | DA_DEBUFF      |
+|     3      | Disease | DA_DISEASE     |
+|     4      | Poison  | DA_POISON      |
+|     5      |  Curse  | DA_CURSE       |
+|     6      |  Stun   | DA_STUN        |
+|     7      |  Fear   | DA_FEAR        |
+|     8      | Deeper  | DA_DEEPER      |
+|     9      |  Hide   | DA_HIDE        |
+|     10     |  Bomb   | DA_BOMB        |
+|     11     | Charged | DA_CHARGED     |
+
+</TabItem>
+<TabItem value="sub-dispel" label="Sub Dispel Attribute">
+
+| Identifier |    Meaning    | Technical Name |
+|:----------:|:-------------:|:---------------|
+|     0      |     None      | SDA_NONE       |
+|     1      |     Stun      | SDA_STUN       |
+|     2      |   Movespeed   | SDA_MOVESPEED  |
+|     3      |     Fear      | SDA_FEAR       |
+|     4      |   Blooding    | SDA_BLOODING   |
+|     5      |    Deeper     | SDA_DEEPER     |
+|     6      |     Blind     | SDA_BLIND      |
+|     7      |    Reverse    | SDA_REVERSE    |
+|     8      |     Bind      | SDA_BIND       |
+|     9      |   Mesmerize   | SDA_MESMERIZE  |
+|     10     |  Sever Bone   | SDA_SEVERBONE  |
+|     11     |   Knockback   | SDA_KNOCKBACK  |
+|     12     | Evasion Minus | SDA_TBMINUS    |
+|     13     |  GTI Resist   | SDA_GTIRESIST  |
+
+</TabItem>
+<TabItem value="abstate-save-type" label="Abstate Save Type">
+
+| Identifier |    Meaning     | Technical Name      |
+|:----------:|:--------------:|:--------------------|
+|     0      |      None      | AST_NONE            |
+|     1      |     Logoff     | AST_LINK_LOGOFF     |
+|     2      | Logoff & Death | AST_LINK_LOGOFF_DIE |
+|     3      |     Death      | AST_LINK_Die        |
+
+</TabItem>
+</Tabs>
