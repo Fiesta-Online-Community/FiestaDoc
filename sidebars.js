@@ -7,7 +7,7 @@ const sidebars = {
         'shine-files/getting-started',
         { 'File List':
             [
-            'shine-files/abstate'
+                'shine-files/abstate'
             ]
         }
     ]

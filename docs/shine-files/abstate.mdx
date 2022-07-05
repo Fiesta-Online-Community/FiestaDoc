@@ -2,9 +2,6 @@
 sidebar_position: 1
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 # Abstate.shn
 
 :::caution
@@ -14,53 +11,318 @@ You will need a Hook to add the functionality of adding new Abstates here.
 _The reason behind this is the hardcoded AbStataIndex Limit in the Zone service_
 :::
 
-<Tabs>
-<TabItem value="dispel" label="Dispel Attribute" default>
+### Column Explanation
 
-| Identifier | Meaning | Technical Name |
-|:----------:|:-------:|:---------------|
-|     0      |  None   | DA_NONE        |
-|     1      |  Buff   | DA_GOOD        |
-|     2      | Debuff  | DA_DEBUFF      |
-|     3      | Disease | DA_DISEASE     |
-|     4      | Poison  | DA_POISON      |
-|     5      |  Curse  | DA_CURSE       |
-|     6      |  Stun   | DA_STUN        |
-|     7      |  Fear   | DA_FEAR        |
-|     8      | Deeper  | DA_DEEPER      |
-|     9      |  Hide   | DA_HIDE        |
-|     10     |  Bomb   | DA_BOMB        |
-|     11     | Charged | DA_CHARGED     |
+#### ID
+The ID of the given AbState entry. There must not be any duplicate.
 
-</TabItem>
-<TabItem value="sub-dispel" label="Sub Dispel Attribute">
+| Possible Values | Data Type |
+|:---------------:|:---------:|
+|    0 - 65535    |  UInt16   |
 
-| Identifier |    Meaning    | Technical Name |
-|:----------:|:-------------:|:---------------|
-|     0      |     None      | SDA_NONE       |
-|     1      |     Stun      | SDA_STUN       |
-|     2      |   Movespeed   | SDA_MOVESPEED  |
-|     3      |     Fear      | SDA_FEAR       |
-|     4      |   Blooding    | SDA_BLOODING   |
-|     5      |    Deeper     | SDA_DEEPER     |
-|     6      |     Blind     | SDA_BLIND      |
-|     7      |    Reverse    | SDA_REVERSE    |
-|     8      |     Bind      | SDA_BIND       |
-|     9      |   Mesmerize   | SDA_MESMERIZE  |
-|     10     |  Sever Bone   | SDA_SEVERBONE  |
-|     11     |   Knockback   | SDA_KNOCKBACK  |
-|     12     | Evasion Minus | SDA_TBMINUS    |
-|     13     |  GTI Resist   | SDA_GTIRESIST  |
+---
 
-</TabItem>
-<TabItem value="abstate-save-type" label="Abstate Save Type">
+#### InxName
+The Index of the given AbState entry
 
-| Identifier |    Meaning     | Technical Name      |
-|:----------:|:--------------:|:--------------------|
-|     0      |      None      | AST_NONE            |
-|     1      |     Logoff     | AST_LINK_LOGOFF     |
-|     2      | Logoff & Death | AST_LINK_LOGOFF_DIE |
-|     3      |     Death      | AST_LINK_Die        |
+| Possible Values | Data Type |         Additional Info         |
+|:---------------:|:---------:|:-------------------------------:|
+|    Anything     |  String   | No special characters or spaces |
 
-</TabItem>
-</Tabs>
+---
+
+#### AbStataIndex
+A special index for an Abstate. This number can not be increased without a hook that features Abstate addition.
+
+| Possible Values | Data Type |            Additional Info            |
+|:---------------:|:---------:|:-------------------------------------:|
+|     0 - 792     |  UInt32   | 792 is the limit of the default files |
+
+---
+
+#### ~~KeepTimeRatio~~
+This column is unused
+
+#### ~~KeepTimePower~~
+This column is unused
+
+#### ~~StateGrade~~
+This column is unused
+
+---
+
+#### PartyState
+Used for Party buffs, to trigger the given AbState depending on the amount of party members.<br/>
+So _PartyState1_ holds the Abstate given to a 1 player party, _PartyState2_ the Abstate given to a 2 player party and so on.
+
+|   Possible Values   | Data Type |
+|:-------------------:|:---------:|
+| Any AbState InxName |  String   |
+
+---
+
+#### PartyRange
+Range for the party members to gain the party AbState
+
+| Possible Values  | Data Type |                Additional Info                |
+|:----------------:|:---------:|:---------------------------------------------:|
+| 0 ~ 4.29 billion |  UInt32   | Using values greater than 5000 is impractical |
+
+---
+
+#### PartyEnchantNumber
+How many party members can be affected by the party buff.<br/>
+Theoretically this value can be greater than 5 for expeditions.
+
+| Possible Values | Data Type |
+|:---------------:|:---------:|
+|     0 - 50      |  UInt32   |
+
+---
+
+#### SubAbState
+InxName of the SubAbstate to the AbState.<br/>
+SubAbstates are defined in the SubAbState.shn file!
+
+|     Possible Values      | Data Type |
+|:------------------------:|:---------:|
+| Every SubAbstate InxName |  String   |
+
+---
+
+#### DispelIndex
+An index which defines, when an Abstate can be dispeled.<br/>
+_These values are hardcoded in the services and are therefore referenced by the given table below_
+
+<details>
+    <summary>Dispel Attribute Definition</summary>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th align="center">ID</th>
+                <th align="center">Meaning</th>
+                <th align="left">Technical Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td align="center">0</td>
+                <td align="center">None</td>
+                <td align="left">DA_NONE</td>
+            </tr>
+            <tr>
+                <td align="center">1</td>
+                <td align="center">Buff</td>
+                <td align="left">DA_GOOD</td>
+            </tr>
+            <tr>
+                <td align="center">2</td>
+                <td align="center">Debuff</td>
+                <td align="left">DA_DEBUFF</td>
+            </tr>
+            <tr>
+                <td align="center">3</td>
+                <td align="center">Disease</td>
+                <td align="left">DA_DISEASE</td>
+            </tr>
+            <tr>
+                <td align="center">4</td>
+                <td align="center">Poison</td>
+                <td align="left">DA_POISON</td>
+            </tr>
+            <tr>
+                <td align="center">5</td>
+                <td align="center">Curse</td>
+                <td align="left">DA_CURSE</td>
+            </tr>
+            <tr>
+                <td align="center">6</td>
+                <td align="center">Stun</td>
+                <td align="left">DA_STUN</td>
+            </tr>
+            <tr>
+                <td align="center">7</td>
+                <td align="center">Fear</td>
+                <td align="left">DA_FEAR</td>
+            </tr>
+            <tr>
+                <td align="center">8</td>
+                <td align="center">Deeper</td>
+                <td align="left">DA_DEEPER</td>
+            </tr>
+            <tr>
+                <td align="center">9</td>
+                <td align="center">Hide</td>
+                <td align="left">DA_HIDE</td>
+            </tr>
+            <tr>
+                <td align="center">10</td>
+                <td align="center">Bomb</td>
+                <td align="left">DA_BOMB</td>
+            </tr>
+            <tr>
+                <td align="center">11</td>
+                <td align="center">Charged</td>
+                <td align="left">DA_CHARGED</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</details>
+
+---
+
+#### SubDispelIndex
+A more refined index which defines, when an Abstate can be dispeled.<br/>
+_These values are hardcoded in the services and are therefore referenced by the given table below_
+
+<details>
+    <summary>Sub Dispel Attribute Definition</summary>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th align="center">Identifier</th>
+                <th align="center">Meaning</th>
+                <th align="left">Technical Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td align="center">0</td>
+                <td align="center">None</td>
+                <td align="left">SDA_NONE</td>
+            </tr>
+            <tr>
+                <td align="center">1</td>
+                <td align="center">Stun</td>
+                <td align="left">SDA_STUN</td>
+            </tr>
+            <tr>
+                <td align="center">2</td>
+                <td align="center">Movespeed</td>
+                <td align="left">SDA_MOVESPEED</td>
+            </tr>
+            <tr>
+                <td align="center">3</td>
+                <td align="center">Fear</td>
+                <td align="left">SDA_FEAR</td>
+            </tr>
+            <tr>
+                <td align="center">4</td>
+                <td align="center">Blooding</td>
+                <td align="left">SDA_BLOODING</td>
+            </tr>
+            <tr>
+                <td align="center">5</td>
+                <td align="center">Deeper</td>
+                <td align="left">SDA_DEEPER</td>
+            </tr>
+            <tr>
+                <td align="center">6</td>
+                <td align="center">Blind</td>
+                <td align="left">SDA_BLIND</td>
+            </tr>
+            <tr>
+                <td align="center">7</td>
+                <td align="center">Reverse</td>
+                <td align="left">SDA_REVERSE</td>
+            </tr>
+            <tr>
+                <td align="center">8</td>
+                <td align="center">Bind</td>
+                <td align="left">SDA_BIND</td>
+            </tr>
+            <tr>
+                <td align="center">9</td>
+                <td align="center">Mesmerize</td>
+                <td align="left">SDA_MESMERIZE</td>
+            </tr>
+            <tr>
+                <td align="center">10</td>
+                <td align="center">Sever Bone</td>
+                <td align="left">SDA_SEVERBONE</td>
+            </tr>
+            <tr>
+                <td align="center">11</td>
+                <td align="center">Knockback</td>
+                <td align="left">SDA_KNOCKBACK</td>
+            </tr>
+            <tr>
+                <td align="center">12</td>
+                <td align="center">Evasion Minus</td>
+                <td align="left">SDA_TBMINUS</td>
+            </tr>
+            <tr>
+                <td align="center">13</td>
+                <td align="center">GTI Resist</td>
+                <td align="left">SDA_GTIRESIST</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</details>
+
+---
+
+#### AbStateSaveType
+Controls, how and when an Abstate gets removed from the player (except of expiration by time)<br/>
+_These values are hardcoded in the services and are therefore referenced by the given table below_
+
+<details>
+    <summary>Abstate Save Type Definition</summary>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th align="center">Identifier</th>
+                <th align="center">Meaning</th>
+                <th align="left">Technical Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td align="center">0</td>
+                <td align="center">None</td>
+                <td align="left">AST_NONE</td>
+            </tr>
+            <tr>
+                <td align="center">1</td>
+                <td align="center">Logoff</td>
+                <td align="left">AST_LINK_LOGOFF</td>
+            </tr>
+            <tr>
+                <td align="center">2</td>
+                <td align="center">Logoff &amp; Death</td>
+                <td align="left">AST_LINK_LOGOFF_DIE</td>
+            </tr>
+            <tr>
+                <td align="center">3</td>
+                <td align="center">Death</td>
+                <td align="left">AST_LINK_Die</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</details>
+
+---
+
+#### MainStateInx
+This column is for party buffs only. Party Abstates need a main Abstate to work, which is referenced in this field.<br/>
+A furthert explanation can be found in the **Adding & Editing Abstates** section
+
+|   Possible Values   | Data Type |
+|:-------------------:|:---------:|
+| Any Abstate InxName |  String   |
+
+---
+
+#### Duplicate
+Defines how often a buff can stuck, if it's a stackable Abstate.<br/>
+A furthert explanation can be found in the **Adding & Editing Abstates** section
+
+| Possible Values | Data Type |           Additional Info           |
+|:---------------:|:---------:|:-----------------------------------:|
+|     0 - 255     |   Byte    | Everything above 100 is impractical |
